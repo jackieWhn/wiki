@@ -4,14 +4,14 @@ title: Part 1 - Configuring each node
 
 The Secret Store nodes have been configured in the [Secret Store tutorial](https://wiki.parity.io/Secret-Store-Tutorial-overview) and do not need to be modified for now.
 Unlike the Secret Store tutorial, we will setup 2 distinct nodes for Alice and Bob as they will have distinct roles.
-Alice's address will be used as the external account to sign and interract with the private contract, while Bob will be a validator (decoding Alice's transactions).
+Alice's address will be used as the external account to sign and interract with the private contract, while Bob will be a validator.
 
 ### 1. Configure Alice's node
-We will create a config file named `alice.toml` with the based on `users.toml` from the [Secret Store Tutorial](https://wiki.parity.io/Secret-Store-Tutorial-overview).
-Alice's node needs its dedicated data directory. Make sure you add the relevant JSON-RPC APIs to Alice's node: `["secretstore","eth","net","private","parity","personal"]` as well.
-The list of bootnodes correspond to the Secret Store nodes for now, we will add Alice and Bob's node in a next step.
+We will create a config file named `alice.toml` based on `users.toml` from the [Secret Store Tutorial](https://wiki.parity.io/Secret-Store-Tutorial-overview).
+Alice's node needs its dedicated data directory. Make sure you also add the relevant JSON-RPC APIs to Alice's node: `["secretstore","eth","net","private","parity","personal"]`.
+The list of bootnodes correspond to the Secret Store nodes for now, we will add Alice and Bob's node later on.
 
-Here is how the `alice.toml` file look like for now.
+Here is how the `alice.toml` file should look likes:
 
 ```toml
 # Alice's config file in alice.toml
@@ -33,7 +33,7 @@ port = 30300
 bootnodes = [
   "enode://59ff7f71a8ced85f23d2455b8645931e962886cce7025fd4fb769c4881c505d8445aa24be98b1aa3067cf7490a2ff0cd1558c37f6a536a4d799f8d93c3fe21ea@127.0.0.1:30301",
   "enode://800cf3b097974b9740d9d7aeda28bf1655e7c30a10bdb5f616ee0b41b786c13ce8d4008854d96430193b7cb4710a59c418566d5f6111bce4a18319757eaec358@127.0.0.1:30302",
-	"enode://58815b57d8af2bc04963bde42b27deca674c18dca4098b8891296479ce0a83c2398a141babb835f181c6447bb1ac2ce4dca88ec20908d41b86166018d842fab4@127.0.0.1:30303",
+  "enode://58815b57d8af2bc04963bde42b27deca674c18dca4098b8891296479ce0a83c2398a141babb835f181c6447bb1ac2ce4dca88ec20908d41b86166018d842fab4@127.0.0.1:30303",
 ]
 
 ```
@@ -41,10 +41,10 @@ bootnodes = [
 ### 2. Configure Bob's node
 
 Bob's configuration file is even simpler as it will only be used as a validator. No need for RPC server here.
-We will create a config file named `alice.toml`, using a dedicated directory for Bob and a network port that isn't used yet.
+We will create a config file named `bob.toml`, using a dedicated directory for Bob and a network port that isn't used yet.
 
 Bob's toml
-```bash
+```toml
 # Users config file in bob.toml
 
 [parity]
@@ -65,23 +65,23 @@ port = 30304  #use a dedicated networking port
 bootnodes = [
   "enode://59ff7f71a8ced85f23d2455b8645931e962886cce7025fd4fb769c4881c505d8445aa24be98b1aa3067cf7490a2ff0cd1558c37f6a536a4d799f8d93c3fe21ea@127.0.0.1:30301",
   "enode://800cf3b097974b9740d9d7aeda28bf1655e7c30a10bdb5f616ee0b41b786c13ce8d4008854d96430193b7cb4710a59c418566d5f6111bce4a18319757eaec358@127.0.0.1:30302",
-	"enode://58815b57d8af2bc04963bde42b27deca674c18dca4098b8891296479ce0a83c2398a141babb835f181c6447bb1ac2ce4dca88ec20908d41b86166018d842fab4@127.0.0.1:30303",
+  "enode://58815b57d8af2bc04963bde42b27deca674c18dca4098b8891296479ce0a83c2398a141babb835f181c6447bb1ac2ce4dca88ec20908d41b86166018d842fab4@127.0.0.1:30303",
 ]
 ```
 
-## 3. Finalize configuration
+## 3. Finalize configurations
  
 ### 3.1 Collect enodes's addresses
  
-We will need to unlock Alice and Bob's account, and make sure that their nodes are connected together. To do so, we first need to know the enode. Launching parity with an incomplete toml configuration file still allows us to read the enode address and let Parity Ethereum  creates the needed directories for us to copy the users' keys in.
+To make sure that Alice and Bob's nodes are connected to each other, we should specify them as bootnodes. To do so, we first need to know their enode address by launching Parity Ethereum. Parity Ethereum will also create the base directories that we specified (`db.alice` and `db.bob`).  
 
 Launch Parity Ethereum with `parity --config alice.toml` and copy the enode address printed in the console. Do the same for Bob with `parity --config bob.toml`.
-for instance:
-Alice: `enode://29ebcddebe4d2c13632080e12a39ef89ff245893e3a7685676a01cbea011395bfce72e82664a9379eb5f3916e9e4f0df5de65d2559e87c28ceb291d53aee6fe0@127.0.0.1:30300`
-Bob: `enode://00db9262e364d683852488c0b404b146268bc1be3df01bbd572e33692d4a8dbd4b8b6ab300e70a01cb3a5024fc164fc355041afdfe82642f3e36c61763b0f22d@127.0.0.1:30304`
+for instance:  
+- Alice: `enode://29ebcddebe4d2c13632080e12a39ef89ff245893e3a7685676a01cbea011395bfce72e82664a9379eb5f3916e9e4f0df5de65d2559e87c28ceb291d53aee6fe0@127.0.0.1:30300`
+- Bob: `enode://00db9262e364d683852488c0b404b146268bc1be3df01bbd572e33692d4a8dbd4b8b6ab300e70a01cb3a5024fc164fc355041afdfe82642f3e36c61763b0f22d@127.0.0.1:30304`
 
-Note that you should replace the IP at the end to use localhost `127.0.0.1`.
-We now have two new directories (db.alice and db.bob) where we will copy the keys from Alice and Bob created in the Secret Store tutorial.
+Note that you should replace the IP at the end to use localhost `127.0.0.1`.  
+We now have two new directories (`db.alice` and `db.bob`) where we will copy the keys from Alice and Bob created in the Secret Store tutorial.
 
 ### 3.2 Manage Alice and Bob's keys
 
@@ -110,7 +110,7 @@ Both configuration files should now have the following bootnodes:
 bootnodes = [
   "enode://59ff7f71a8ced85f23d2455b8645931e962886cce7025fd4fb769c4881c505d8445aa24be98b1aa3067cf7490a2ff0cd1558c37f6a536a4d799f8d93c3fe21ea@127.0.0.1:30301",
   "enode://800cf3b097974b9740d9d7aeda28bf1655e7c30a10bdb5f616ee0b41b786c13ce8d4008854d96430193b7cb4710a59c418566d5f6111bce4a18319757eaec358@127.0.0.1:30302",
-	"enode://58815b57d8af2bc04963bde42b27deca674c18dca4098b8891296479ce0a83c2398a141babb835f181c6447bb1ac2ce4dca88ec20908d41b86166018d842fab4@127.0.0.1:30303",
+  "enode://58815b57d8af2bc04963bde42b27deca674c18dca4098b8891296479ce0a83c2398a141babb835f181c6447bb1ac2ce4dca88ec20908d41b86166018d842fab4@127.0.0.1:30303",
   "enode://29ebcddebe4d2c13632080e12a39ef89ff245893e3a7685676a01cbea011395bfce72e82664a9379eb5f3916e9e4f0df5de65d2559e87c28ceb291d53aee6fe0@127.0.0.1:30300",
   "enode://00db9262e364d683852488c0b404b146268bc1be3df01bbd572e33692d4a8dbd4b8b6ab300e70a01cb3a5024fc164fc355041afdfe82642f3e36c61763b0f22d@127.0.0.1:30304"
 ]
@@ -157,4 +157,4 @@ For Bob, as a validator, we will use:
 Bob's node can be launched with:
 `parity --config bob.toml --private-tx-enabled --private-validators="0xfeacd0d28fd158ba2d3adb6d69d20c723214edc9" --private-account="0xfeacd0d28fd158ba2d3adb6d69d20c723214edc9" --private-sstore-url="http://127.0.0.1:8010" --private-passwords bob.pwd`
 
-|[ ← Tutorial overview](Private-Transactions-Tutorial-Overview.md) | [Part 2 - Permissioning contract → ](Private-Transactions-Tutorial-2.md)|
+|[ ← Tutorial overview ](Private-Transactions-Tutorial-Overview.md) | [ Part 2 - Permissioning contract → ](Private-Transactions-Tutorial-2.md)|

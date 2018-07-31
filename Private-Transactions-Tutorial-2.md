@@ -27,7 +27,7 @@ contract SSPermissions {
 
 This contract is voluntarly open in regards to the `document` parameter, as we do not know the document id yet. Therefore, Bob and Alice are given access to the decryption key, regardless of what document is requested.
 
-To deploy the contract head to [http://remix.ethereum.org](http://remix.ethereum.org).
+To deploy the contract, head to [http://remix.ethereum.org](http://remix.ethereum.org).
 
 - In Remix, create a new file by clicking the `+` at the top left.
 - Name it as you wish and paste the code of the contract.
@@ -39,17 +39,18 @@ To deploy the contract head to [http://remix.ethereum.org](http://remix.ethereum
 - Select Alice's account in the next drop-down.
 - Click Deploy.
 
-![system overview](images/private-tx-remix-screenshot-0.jpg)
+![Remx overview](images/private-tx-remix-screenshot-0.jpg)
 
 - On the right side, you will be given the address of the contract that you can copy.
 - You can also test your contract right away, in the screenshot above, I verified that Alice can access the key.
 
-## 2. Modify the Secret Store configuration files
+## 2. Update the Secret Store configuration files
 
-Now that we have the contract deployed on the blockchain, we can specify it in the Secret Store nodes.
-Add/modify the `acl_contract` parameter of the `[secretstore]` section of each Secret Store node (`ss1.toml`, `ss2.toml`, `ss3.toml`) as follow:
-`acl_contract = "7aC9F71b22CC080BB71bf47b402d6aE71d8C2c0c"`
+Now that we have the contract deployed on the blockchain, we can specify it in the Secret Store nodes.  
+Add/modify the `acl_contract` parameter of the `[secretstore]` section of each Secret Store node (`ss1.toml`, `ss2.toml`, `ss3.toml`) as follow:  
+`acl_contract = "7aC9F71b22CC080BB71bf47b402d6aE71d8C2c0c"`  
+  
 The full configuration files are accessible in [this repository](https://github.com/Tbaut/Private-Transations-Tutorial-files/tree/master/config).
 
 
-|[ ← Part 1 - Configuring each node → ](Private-Transactions-Tutorial-1.md)| [Part 3 - Private contract deployment → ](Private-Transactions-Tutorial-3.md)|
+|[ ← Part 1 - Configuring each node ](Private-Transactions-Tutorial-1.md)| [ Part 3 - Private contract deployment → ](Private-Transactions-Tutorial-3.md)|
