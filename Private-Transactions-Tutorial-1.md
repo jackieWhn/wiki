@@ -3,15 +3,26 @@ title: Part 1 - Configuring each node
 ---
 
 The Secret Store nodes have been configured in the [Secret Store tutorial](https://wiki.parity.io/Secret-Store-Tutorial-overview) and do not need to be modified for now.
-Unlike the Secret Store tutorial, we will setup 2 distinct nodes for Alice and Bob as they will have distinct roles.
-Alice's address will be used as the external account to sign and interract with the private contract, while Bob will be a validator.
+Unlike the Secret Store tutorial, we will setup two distinct nodes for Alice and Bob as they will have different roles.
+Alice's address will be used as the external account to sign and interact with the private contract, while Bob will be a validator.
+
+### 0. Prerquisite
+
+Right now, it is required you compile parity on the branch `PrivatePacketsVerification` that contains bug fixes. Please follow the steps to [build parity](https://wiki.parity.io/Setup#building-from-source)
+```bash
+# in parity directory
+git checkout PrivatePacketsVerification
+cargo build --release --features secretstore
+```
+
+Parity should then be available at `/path/to/parityt_code/target/release/parity`. This binary should be used every time the command `parity` appears in the tutorial.
 
 ### 1. Configure Alice's node
 We will create a config file named `alice.toml` based on `users.toml` from the [Secret Store Tutorial](https://wiki.parity.io/Secret-Store-Tutorial-overview).
 Alice's node needs its dedicated data directory. Make sure you also add the relevant JSON-RPC APIs to Alice's node: `["secretstore","eth","net","private","parity","personal"]`.
-The list of bootnodes correspond to the Secret Store nodes for now, we will add Alice and Bob's node later on.
+The list of bootnodes correspond to the Secret Store nodes for now; we will add Alice and Bob's node later on.
 
-Here is how the `alice.toml` file should look likes:
+Here is how the file `alice.toml` should look likes:
 
 ```toml
 # Alice's config file in alice.toml
@@ -76,7 +87,7 @@ bootnodes = [
 To make sure that Alice and Bob's nodes are connected to each other, we should specify them as bootnodes. To do so, we first need to know their enode address by launching Parity Ethereum. Parity Ethereum will also create the base directories that we specified (`db.alice` and `db.bob`).  
 
 Launch Parity Ethereum with `parity --config alice.toml` and copy the enode address printed in the console. Do the same for Bob with `parity --config bob.toml`.
-for instance:  
+For instance:  
 - Alice: `enode://29ebcddebe4d2c13632080e12a39ef89ff245893e3a7685676a01cbea011395bfce72e82664a9379eb5f3916e9e4f0df5de65d2559e87c28ceb291d53aee6fe0@127.0.0.1:30300`
 - Bob: `enode://00db9262e364d683852488c0b404b146268bc1be3df01bbd572e33692d4a8dbd4b8b6ab300e70a01cb3a5024fc164fc355041afdfe82642f3e36c61763b0f22d@127.0.0.1:30304`
 
@@ -92,7 +103,7 @@ cp Secret_store_tutorial_directory/db.users/keys/DevelopmentChain/file-for-alice
 
 ```
 
-To know which file correspond to which key, simply open them with a text editor and read the addresses.
+To know which file corresponds to which key, open them with a text editor and read the addresses.
 
 You should also create password files for Alice and Bob, `alice.pwd` and `bob.pwd` with `alicepwd` and `bobpwd` respectively. You can do so using the command:
 ```bash
@@ -130,7 +141,7 @@ unlock = ["0xfeacd0d28fd158ba2d3adb6d69d20c723214edc9"]
 password = ["bob.pwd"]
 ```
 
-You can find the complere set of files in [this repository](https://github.com/Tbaut/Private-Transations-Tutorial-files/tree/master/config).
+You can find the complete set of files in [this repository](https://github.com/Tbaut/Private-Transations-Tutorial-files/tree/master/config).
 
 ## 4. launch the nodes with the correct flags
 

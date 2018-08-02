@@ -2,13 +2,13 @@
 title: Part 2 - Permissioning contract
 ---
 
-In this part, we will deploy a permissioning contract that will be used for the Secret Store to know which account are allowed to access the decryption keys. It is very similar to the [Part 4 of the Secret Store tutorial](https://wiki.parity.io/Secret-Store-Tutorial-4.html#3-create-and-deploy-a-permissioning-contract).
+In this part, we will deploy a permissioning contract that will be used for the Secret Store to know which account is allowed to access the decryption keys. It is very similar to the [Part 4 of the Secret Store tutorial](https://wiki.parity.io/Secret-Store-Tutorial-4.html#3-create-and-deploy-a-permissioning-contract).
 
 In fact, the only difference is the code of the contract.
 
 ## 1. Deploying a permissioning contract
 
-In the rest of the tutorial, we will use the following  permissioning contract, that allows Bob or Alice to access the decryption key from the secret store.
+In the rest of the tutorial, we will use the following permissioning contract, which allows Bob or Alice to access the decryption key from the secret store.
 Here is the contract code that we will use: 
 ```solidity
 pragma solidity ^0.4.11;
@@ -25,7 +25,7 @@ contract SSPermissions {
 }
 ```
 
-This contract is voluntarly open in regards to the `document` parameter, as we do not know the document id yet. Therefore, Bob and Alice are given access to the decryption key, regardless of what document is requested.
+This contract is voluntarily open in regards to the `document` parameter, as we do not know the document id yet. Therefore, Bob and Alice are given access to the decryption key, regardless of what document is requested.
 
 To deploy the contract, head to [http://remix.ethereum.org](http://remix.ethereum.org).
 
@@ -42,7 +42,7 @@ To deploy the contract, head to [http://remix.ethereum.org](http://remix.ethereu
 ![Remx overview](images/private-tx-remix-screenshot-0.jpg)
 
 - On the right side, you will be given the address of the contract that you can copy.
-- You can also test your contract right away, in the screenshot above, I verified that Alice can access the key.
+- You can also test your contract right away, in the screenshot above, I verified that Alice could access the key.
 
 ## 2. Update the Secret Store configuration files
 
