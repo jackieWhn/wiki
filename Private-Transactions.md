@@ -67,7 +67,7 @@ The next steps of the flow are shown in the picture below:
 ![private-transactions-flow](images/private-transactions-flow.png)
 
 ### Public/private contracts internals
-Let's consider another example in order to understand in details the wrapping of a private contract into a public one. If we want to use the following voting contract as the private contract: [source](http://solidity.readthedocs.io/en/v0.4.21/solidity-by-example.html#voting). The public contract wrapping the aforementioned private contract must be deployed using `private_composeDeploymentTransaction` [API method](#rpc-api). As explained before, this API call will prepare a transaction that once broadcasted will deploy a public contract storing the private contract's state and code (the deployed public contract's [looks like this](https://github.com/parity-contracts/private-tx/blob/master/contracts/PrivateContract.sol)).
+Let's consider another example in order to understand in details the wrapping of a private contract into a public one. If we want to use the following voting contract as the private contract: [source](http://solidity.readthedocs.io/en/v0.4.21/solidity-by-example.html#voting). The public contract wrapping the aforementioned private contract must be deployed using `private_composeDeploymentTransaction` [API method](JSONRPC-private-module#private_composeDeploymentTransaction). As explained before, this API call will prepare a transaction that once broadcasted will deploy a public contract storing the private contract's state and code (the deployed public contract's [looks like this](https://github.com/parity-contracts/private-tx/blob/master/contracts/PrivateContract.sol)).
 
 To call `vote(1)` from the private contract for instance, the system performs the following steps:
 
@@ -115,7 +115,7 @@ curl --data '{"method":"private_composeDeploymentTransaction","params":["pending
 ```
 
 Where `0xf9014203...ba4a30127e29774d15b1e12be` is the signed transaction from the previous step.
-This method returns a transaction, which should be signed as well. See [API section below](#rpc-api) for more details.
+This method returns a transaction, which should be signed as well. See [JSON-RPC api methods](JSONRPC-private-module) for more details.
 
 
 2.3) The transaction containing the specifically crafted public contract should be broadcasted using `eth_sendRawTransaction` method, resulting in the public contract being deployed on the blockchain.
@@ -127,7 +127,7 @@ Example:
 curl --data '{"method":"private_contractKey","params":["0x52f5f1b8c785ab1c0e892b4c46b080fde9ad992b"],"id":1,"jsonrpc":"2.0"}' -H "Content-Type: application/json" -X POST localhost:8549
 ```
 
-Where `0x52f5f1b...d992b` is the public contract's address returned at step 2.2 ([see API description](#rpc-api) for more details).
+Where `0x52f5f1b...d992b` is the public contract's address returned at step 2.2 ([JSON-RPC api methods](JSONRPC-private-module) for more details).
 The permissions for this key id now need to get set in the Secret Store permissioning contract.
 You can do so by calling the method `addKey(address[] users, bytes32 key)` from the [the sample contract](https://gist.github.com/grbIzl/14541e57f50b3ceae9831512c8234624) with key id and the address list of the nodes allowed to use the key.
 
