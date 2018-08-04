@@ -114,7 +114,7 @@ echo bobpwd > bob.pwd
 
 ### 3.3 Update Alice and Bob's configuration files
 
-You can now edit Alice and Bob's configuration files to add the bootnodes to each file, and unlock the accounts:
+You can now edit Alice and Bob's configuration files to add the bootnodes to each file:
 
 Both configuration files should now have the following bootnodes:
 ```toml
@@ -127,18 +127,11 @@ bootnodes = [
 ]
 ```
 
-Add the following to `alice.toml`:
+Add the following to `alice.toml` to be able to deploy a contract using Remix:
 ```toml
 [account] # unlock Alice's account to deploy the contract
 unlock = ["0xe5a4b6f39b4c3e7203ca8caeecbad58d8f29b046"]
 password = ["alice.pwd"]
-```
-
-Add the following to `bob.toml`:
-```toml
-[account] # unlock Bob's account to deploy the contract
-unlock = ["0xfeacd0d28fd158ba2d3adb6d69d20c723214edc9"]
-password = ["bob.pwd"]
 ```
 
 You can find the complete set of files in [this repository](https://github.com/Tbaut/Private-Transations-Tutorial-files/tree/master/config).
