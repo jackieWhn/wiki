@@ -2,7 +2,7 @@
 title: Part 2 - Permissioning contract
 ---
 
-In this part, we will deploy a permissioning contract that will be used for the Secret Store to know which account is allowed to access the decryption keys. It is very similar to the [Part 4 of the Secret Store tutorial](https://wiki.parity.io/Secret-Store-Tutorial-4.html#3-create-and-deploy-a-permissioning-contract).
+In this part, we will deploy a permissioning contract that will be used for the Secret Store to know which account is allowed to access the decryption keys. It is very similar to the [Part 4 of the Secret Store tutorial](Secret-Store-Tutorial-4#3-create-and-deploy-a-permissioning-contract).
 
 In fact, the only difference is the code of the contract.
 
