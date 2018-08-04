@@ -162,4 +162,3 @@ Bob's node can be launched with:
 `parity --config bob.toml --private-tx-enabled --private-validators="0xfeacd0d28fd158ba2d3adb6d69d20c723214edc9" --private-account="0xfeacd0d28fd158ba2d3adb6d69d20c723214edc9" --private-sstore-url="http://127.0.0.1:8010" --private-passwords bob.pwd`
 
 |[ ← Tutorial overview ](Private-Transactions-Tutorial-Overview.md) | [ Part 2 - Permissioning contract → ](Private-Transactions-Tutorial-2.md)|
-
